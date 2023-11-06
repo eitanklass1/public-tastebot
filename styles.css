@@ -1,0 +1,637 @@
+body {
+    display: flex;
+    justify-content: center;
+    background-color: #f6f5f7;
+}
+
+img {
+    width: 30px;
+    vertical-align: middle;
+    border-style: none;
+    border-radius: 100%;
+}
+
+.container {
+    width: 50%;
+}
+
+#title {
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat";
+    font-size: 700;
+    font-size: 2.75rem;
+    margin-bottom: 1.5rem;
+}
+
+#desc {
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat";
+    font-weight: 300;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#notification {
+    border: 2px solid #ff8069;
+    border-radius: 4px;
+    background-color: #FAC898;
+    font-family: "Montserrat";
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Dropdown */
+.dropdown-container {
+    width: 100%;
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.dropdown {
+    font-family: "Montserrat";
+    font-size: 0.8rem;
+    /* min-width: 15em; What he coded */
+    /* width: 100%; */
+    position: relative;
+    flex: 1;
+}
+
+.dropdown * {
+    box-sizing: border-box;
+}
+
+.select {
+    background-color: #2a2f3b;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #2a2f3b;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+    /* transition: background 0.3s; */
+}
+
+.select-clicked {
+    border: 2px solid #26489a;
+    box-shadow: 0 0 0.8em #26489a;
+}
+
+.select:hover {
+    background: #323741;
+}
+
+.caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px #fff solid;
+    transition: 0.3s;
+}
+
+.caret-rotate {
+    transform: rotate(180deg);
+}
+
+.menu {
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: #323741;
+    border: 1px solid #363a43;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #9fa5b5;
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 1;
+}
+
+.menu li {
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    cursor: pointer;
+}
+
+.menu li:hover {
+    background: #2a2d35;
+}
+
+.active {
+    background: #23242a;
+}
+
+.menu-open {
+    display: block;
+    opacity: 1;
+}
+
+#searchYelpButton {
+    background-color: #FF4B2B;
+    color: white;
+    font-family: "Montserrat";
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin-left: 1rem;
+    height: 45px;
+    width: 45px;
+    /* margin: 0 1rem; */
+}
+
+#searchYelpButton:hover {
+    background-color: #ff573a;
+}
+
+.icon.hidden {
+    display: none;
+}
+
+.icon.visible {
+    display: inline-block;   
+}
+
+#beta-message {
+    text-align: center;
+    font-family: "Montserrat";
+    color: #9fa5b5;
+    font-size: 0.6rem;
+    margin-top: 0;
+}
+
+.chat-header {
+    width: 100%;
+    display: flex;
+    align-items: center; /* Center vertically */
+    flex-direction: row;
+    height: 40px;
+    background-color: #efefef;
+    padding: 5px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    margin: 0; /* Reset margin */
+}
+
+.chat-header > img {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px; /* Add 5px of margin to the right for horizontal spacing */
+
+}
+
+.chat-header > p {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.chat-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center; /* Center vertically */
+    flex-direction: row;
+    height: 50px;
+    background-color: #efefef;
+    padding: 5px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    position: relative;
+}
+
+.chat-bottom > .chat-input {
+    width: 100%;
+}
+
+.chat-bottom > .chat-input > input {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    font-family: "Inter";
+    font-size: 0.8rem;
+    padding: 5px;
+    line-height: 2;
+}
+
+#userSendButton {
+    background-color: #FF4B2B;
+    border-radius: 8px;
+    height: 50%;
+    border: none;
+    position: absolute;
+    right: 8px;
+    top: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#userSendButton:hover {
+    background-color: #ff573a;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-end;
+}
+
+.system-profile-img {
+    display: flex;
+    padding-bottom: 16px;
+}
+
+.system-profile-img > img {
+    width: 40px;
+    height: 40px;
+}
+
+.system-message {
+    font-family: "Inter";
+    font-size: 0.8rem;
+    padding-left: 10px;
+    display: inline-block;
+    width: 60%;
+}
+
+.system-message p {
+    background: #efefef none repeat scroll 0 0;
+    border-radius: 10px 10px 10px 0;
+    color: black;
+    font-family: "Inter";
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.user-message {
+    font-family: "Inter";
+    font-size: 0.8rem;
+    padding-left: 10px;
+    display: inline-block;
+    width: 60%;
+    margin-left: 35%;
+}
+
+.user-message p {
+    background: #7ea9fa none repeat scroll 0 0;
+    border-radius: 10px 10px 0 10px;
+    color: white;
+    font-family: "Inter";
+    padding: 0.5rem;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+@media (max-width: 800px) {
+    .container {
+        width: 90%;
+    }
+
+    #title {
+        font-size: 2.25rem;
+    }
+
+    #desc {
+        font-size: 1rem;
+    }
+
+    #notification {
+        font-size: 0.8rem;
+    }
+
+    .chat-header > p {
+        font-size: 1.25rem;
+    }
+
+    .system-profile-img > img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .user-message {
+        font-size: 0.8rem;
+    }
+
+    .system-message {
+        font-size: 0.8rem;
+    }
+
+    .chat-bottom {
+        height: 40px;
+    }
+
+    .chat-bottom > .chat-input > input {
+        font-size: 0.8rem;
+    }
+
+    #userSendButton {
+        height: 60%;
+        top: 20%;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* body {
+    display: flex;
+    justify-content: center;
+    background-color: #f6f5f7;
+}
+
+.container {
+    width: 60%;
+}
+
+#title {
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat";
+    font-size: 700;
+    font-size: 2.75rem;
+}
+
+#desc {
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat";
+    font-weight: 300;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+#notification {
+    border: 2px solid #ff8069;
+    border-radius: 4px;
+    background-color: #FAC898;
+    font-family: "Montserrat";
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+img {
+    width: 30px;
+    vertical-align: middle;
+    border-style: none;
+    border-radius: 100%;
+}
+
+.msg-header {
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 10%;
+    border-bottom: none;
+    display: inline-block;
+    background-color: #efefef;
+    margin: 0;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-family: "Montserrat";
+    font-size: 1.25rem;
+}
+
+.msgimg {
+    margin-left: 2%;
+    margin-top: 2%;
+    float: left;
+}
+
+.container1 {
+    width: 270px;
+    height: auto; 
+    float: left;
+    margin: 0;
+}
+
+
+.active {
+    width: 150px;
+    float: left;
+    color: black;
+    font-weight: bold;
+    margin: 0 0 0 5px;
+    height: 10%;
+}
+
+received-chats-img {
+
+    width: 50px;
+    float: left;
+}
+
+.received-msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    width: 92%;
+}
+.received-msg-inbox {
+    width: 57%;
+}
+
+.received-msg-inbox p {
+    background: #efefef none repeat scroll 0 0;
+    border-radius: 10px;
+    color: black;
+    font-size: 1rem;
+    font-family: "Inter";
+    margin-left: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+p {
+    overflow-wrap: break-word;
+}
+
+.outgoing-chats {
+    overflow: hidden;
+    margin: 26px 20px;
+}
+
+.outgoing-chats-msg p {
+    background-color: #FF4B2B;
+    opacity: 85%;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: "Inter";
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+    padding: 1rem;
+
+}
+.outgoing-chats-msg {
+        float: right;
+        width: 46%;
+    }
+
+
+.outgoing-chats-img {
+    display: inline-block;
+    width: 50px;
+    float: right;
+    margin-right: 1rem;
+}
+
+
+.msg-bottom {
+    border-top: 1px solid #ccc;
+    position: relative;
+    height: 11%;
+    background-color: rgb(239 239 239);
+}
+
+.input-group {
+    margin-top: 1%;
+    outline: none !important;
+    border-radius: 8px;
+    width: 98% !important;
+    background-color: #fff;
+    position: relative;
+    display: flex;
+
+}
+
+.input-group > .form-control {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.form-control {
+    border: none !important;
+    border-radius: 20px !important;
+    display: block;
+    height: calc(1.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    font-family: "Inter";
+}
+
+#userSendButton {
+    background-color: #FF4B2B;
+    border-radius: 8px;
+    height: 80%;
+    border: none;
+    position: absolute;
+    right: 4px;
+    top: 10%;
+}
+
+input:focus {
+    outline: none;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+
+@media (max-width: 800px) {
+    .container {
+        width: 90%;
+    }
+
+    #title {
+        font-size: 2.25rem;
+    }
+
+    #desc {
+        font-size: 1rem;
+    }
+}
+
+.search {
+    display: flex;
+    position: relative;
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
+}
+
+button {
+    border-radius: 8px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+    margin: 8px 0;
+}
+
+.user-chat {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #FFBD9B;
+    font-family: "Montserrat";
+    align-items: flex-end;
+}
+
+.system-chat {
+    display: flex;
+    background-color: #e0e0e0;
+    font-family: "Montserrat";
+    align-items: flex-end;
+} */
