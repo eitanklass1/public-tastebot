@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 config();
 
 import mongoose from 'mongoose';
-import { connectToAstraDb, initMongooseBusinessModel } from './astradb-mongoose.js';
+import { connectToAstraDb, initMongooseBusinessModel } from '../astradb-mongoose.js';
 
 (async () => {
     console.log("start")
