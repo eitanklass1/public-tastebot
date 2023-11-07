@@ -6,14 +6,13 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;500;600;700;800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;500;600;700;800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>YelpGPT</title>
+    <title>tastebot.app</title>
     <script>
         var currentData = {}
 
         function sendMessage() {
-            // const urlAddress = document.getElementById("urlAddress").value;
+            // const urlAddress = document.getElementById("urlAddress").value; // If user is able to plug in their own URL, uncomment this line and comment the line below this
             const urlAddress = document.getElementsByClassName("active")[0].getAttribute('data-url')
             const messageContent = document.getElementById("userSendMessage").value;
             document.getElementById("userSendMessage").value = ""
@@ -21,6 +20,7 @@
             currentData.messages.push({ content: messageContent, role: "user" })
             updateState(currentData)
 
+            // This sends the messages to "addReviewToAstra" and "addChatGPTresponse", waits for the response, and adds the data to updateState() function
             fetch("/", {
 					method: "POST",
 					headers: {
@@ -41,19 +41,17 @@
         }
 
         function getYelpReviewsByUrl() {
-            // const urlAddress = document.getElementById("urlAddress").value
+            // const urlAddress = document.getElementById("urlAddress").value // If user is able to plug in their own URL, uncomment this line and comment the line below this
             const urlAddress = document.getElementsByClassName("active")[0].getAttribute('data-url')
 
-            // Added
-            // Get references to the button and its loading icon
+            // This needs to be worked on for the loading icon
             const submitButton = document.getElementById('searchYelpButton');
             const icon = submitButton.querySelector('.icon');
-
-            // Disable the button and set it to the "loading" state
             submitButton.disabled = true;
             icon.classList.remove('hidden');
             icon.classList.add('visible');
             submitButton.textContent = ''; // Remove the button text
+            // 
 
             console.log(urlAddress)
 
@@ -74,21 +72,21 @@
 				.catch((error) => {
 					console.error("Error:", error);
 				}).finally(() => {
-                    // Re-enable the button and reset it to its normal state
+                    // This .finally() => {...} is part of the loading icon that needs to be worked on
                     submitButton.disabled = false;
                     icon.classList.remove('visible');
                     icon.classList.add('hidden');
-                    submitButton.textContent = 'GO'; // Restore the button text
+                    submitButton.textContent = 'GO';
                 });
         }
 
         function updateState(data) {
-            // document.getElementById("messages").classList.remove("hidden");
             document.getElementById("chat-log").classList.remove("hidden");
             currentData = data
             renderMessages(data);
         }
 
+        // Formats the chat bot message
         function systemChatMessage(message, business) {
             return `<div class="chat-message">
                         <div class="system-profile-img">
@@ -100,6 +98,7 @@
                     </div>`
         }
 
+        // Formats the user message
         function userChatMessage(message, business) {
             return `<div class="chat-message">
                         <div class="user-message">
@@ -107,57 +106,6 @@
                         </div>
                     </div>`
         }
-
-        // function systemChatMessage(message, business) {
-        //     return `<div class="chat-message" style="white-space: pre-line">
-        //                 <div class="system-chat">
-        //                     <div>
-        //                         <div>
-        //                             <span>${message.content}</span>
-        //                         </div>
-        //                     </div>
-        //                     <img src="" alt="System profile image">
-        //                 </div>
-        //             </div>`
-        // }
-        // function systemChatMessage(message, business) {
-        //     return `<div class="chat-message">
-        //                 <div class="received-chats-img">
-        //                     <img src="https://s3-symbol-logo.tradingview.com/yelp--big.svg" alt="System profile image">    
-        //                 </div>
-        //                 <div class="received-msg">
-        //                     <div class="received-msg-inbox">
-        //                         <p>${message.content}</p>
-        //                     </div>
-        //                 </div>
-        //             </div>`
-        // }
-
-        // function userChatMessage(message, business) {
-        //     return `<div class="chat-message">
-        //                 <div class="user-chat">
-        //                     <div>
-        //                         <div>
-        //                             <span>${message.content}</span>
-        //                         </div>
-        //                     </div>
-        //                     <img src="" alt="User profile image">
-        //                 </div>
-        //             </div>`
-        // }
-
-        // function userChatMessage(message, business) {
-        //     return `<div class="chat-message">
-        //                 <div class="outgoing-chats-img">
-        //                     <img src="https://s3-symbol-logo.tradingview.com/yelp--big.svg" alt="System profile image">    
-        //                 </div>
-        //                 <div class="outgoing-msg">
-        //                     <div class="outgoing-chats-msg"">
-        //                         <p>${message.content}</p>
-        //                     </div>
-        //                 </div>
-        //             </div>`
-        // }
 
         function renderMessages(data) {
             let htmlMessagesContent = '';
@@ -173,16 +121,15 @@
 			const messagesDiv = document.getElementById("chat-log");
 			messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
-
     </script>
 </head>
 <body>
     <div class="container">
-        <!-- <h2 id="title">taste<span style="color: #2b75ff;">bot</span></h2> -->
         <h2 id="title">taste<span style="color: #3583F0;">bot</span></h2>
         <button id="notification"><a href="https://forms.gle/SZFwckBg8gP49Ki59">&#10071; | iOS app coming soon. Get notified! &rarr;</a></button>
         <p id="desc">Answer your questions by using a curated list of a restaurant's Yelp reviews!</p>
         
+        <!-- This is for the drop down -->
         <div class="dropdown-container">
             <div class="dropdown">
                 <div class="select">
@@ -206,15 +153,12 @@
                         <g id="SVGRepo_iconCarrier"> <path d="M231.626,128a16.015,16.015,0,0,1-8.18262,13.96094L54.53027,236.55273a15.87654,15.87654,0,0,1-18.14648-1.74023,15.87132,15.87132,0,0,1-4.74024-17.60156L60.64746,136H136a8,8,0,0,0,0-16H60.64746L31.64355,38.78906A16.00042,16.00042,0,0,1,54.5293,19.44727l168.915,94.59179A16.01613,16.01613,0,0,1,231.626,128Z"/> </g>
                     </svg>
                 </span>
-                <!-- <svg fill="#FFFFFF" width="30px" height="30px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                    <g id="SVGRepo_iconCarrier"> <path d="M231.626,128a16.015,16.015,0,0,1-8.18262,13.96094L54.53027,236.55273a15.87654,15.87654,0,0,1-18.14648-1.74023,15.87132,15.87132,0,0,1-4.74024-17.60156L60.64746,136H136a8,8,0,0,0,0-16H60.64746L31.64355,38.78906A16.00042,16.00042,0,0,1,54.5293,19.44727l168.915,94.59179A16.01613,16.01613,0,0,1,231.626,128Z"/> </g>
-                </svg> -->
             </button>
         </div>
 
         <p id="beta-message">This is the beta version with a limited number of restaurants. We are working hard to add more restaurants.</p>
+
+        <!-- This is needed if the user is able to input their own URL -->
 
         <!-- <div class="search">
             <input id="urlAddress" type="text" placeholder="https://www.yelp.com/biz/steam-palo-alto" />
@@ -252,61 +196,14 @@
                 </button>
             </div>
         </div>
-
     </div>
-
-
-
-    <!-- <div class="container">
-        <h2 id="title">Yelp<span style="color: #FF4B2B;">GPT</span></h2>
-        <button id="notification"><a href="">&#10071; | iOS app coming soon. Get notified! &rarr;</a></button>
-        <p id="desc">Gone are the days of scrolling through endless restaurant reviews. YelpGPT has the answers to your questions!</p>
-        <div class="search">
-            <input id="urlAddress" type="text" placeholder="https://www.yelp.com/biz/steam-palo-alto" />
-            <div>
-                <button id="searchYelpButton" type="button">
-                    <svg fill="#FFFFFF" width="30px" height="30px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                        <g id="SVGRepo_iconCarrier"> <path d="M231.626,128a16.015,16.015,0,0,1-8.18262,13.96094L54.53027,236.55273a15.87654,15.87654,0,0,1-18.14648-1.74023,15.87132,15.87132,0,0,1-4.74024-17.60156L60.64746,136H136a8,8,0,0,0,0-16H60.64746L31.64355,38.78906A16.00042,16.00042,0,0,1,54.5293,19.44727l168.915,94.59179A16.01613,16.01613,0,0,1,231.626,128Z"/> </g>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <div class="msg-header">
-            <div class="container1">
-
-                <img src="https://s3-symbol-logo.tradingview.com/yelp--big.svg" class="msgimg">
-                <div class="active ">
-                    <p>Yelp</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="messages">
-            
-        </div>
-
-        <div class="msg-bottom">
-            <div class="input-group">
-                <input id="userSendMessage" type="text" class="form-control" placeholder="Write message...">
-                <button id="userSendButton" type="button">
-                    <svg fill="#FFFFFF" width="25px" height="25px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                        <g id="SVGRepo_iconCarrier"> <path d="M231.626,128a16.015,16.015,0,0,1-8.18262,13.96094L54.53027,236.55273a15.87654,15.87654,0,0,1-18.14648-1.74023,15.87132,15.87132,0,0,1-4.74024-17.60156L60.64746,136H136a8,8,0,0,0,0-16H60.64746L31.64355,38.78906A16.00042,16.00042,0,0,1,54.5293,19.44727l168.915,94.59179A16.01613,16.01613,0,0,1,231.626,128Z"/> </g>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div> -->
 </body>
 
 <script>
     const el = document.getElementById('chat-log')
     el.scrollTop = el.scrollHeight
-
+    
+    // This is for the user when they have their own URL that they plug in
     // document.getElementById("urlAddress").addEventListener("keyup", function (event) {
     //     if (event.key === "Enter") {
     //         getYelpReviewsByUrl();
