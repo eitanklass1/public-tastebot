@@ -1,22 +1,17 @@
 import mongoose from "mongoose"
-import { connectToAstraDb, initMongooseBusinessModel } from "./astradb-mongoose.js"
 import { generateEmbedding } from "./generateEmbeddings.js"
 import { getYelpReviews, getBusinessIdFromUrl } from "./getYelpReviews.js"
-
 import fs  from 'fs'
-
-// const reviews = fs.readFileSync('reviews.txt', 'utf-8');
 
 export const addReviewToAstra = async (url) => {
     try {
-        console.log("1")
+        // Initialize model from mongoose
         const Business = mongoose.model("Business")
 
         const businessURL = url
         console.log(`businessURL`, businessURL)
 
         const existingReview = await Business.findOne({ url: businessURL })
-        // const existingReview = await doc.findOne({ url: businessURL })
 
         if (existingReview) {
             console.log("Review already exists in the database")
@@ -26,9 +21,8 @@ export const addReviewToAstra = async (url) => {
                 ...existingReview.toJSON()
             }
         } else {
-            // let reviews = await getYelpReviews(businessURL)
-            let reviews = fs.readFileSync('falafelstopReviews.txt', 'utf-8');
-            console.log("1")
+            // let reviews = await getYelpReviews(businessURL) // This is for when the user inputs their own link into the restaurant search bar
+            let reviews = fs.readFileSync('falafelstopReviews.txt', 'utf-8'); // This is a temporary fix -- when adding a new restaurant just change the .txt file
             let businessID = await getBusinessIdFromUrl(businessURL)
             let vector = await generateEmbedding(reviews)
             let addedReview = await Business.create({
@@ -49,9 +43,11 @@ export const addReviewToAstra = async (url) => {
     }
 }
 
+// To add a new review -- the temporary way
+
+// 1. Uncomment these lines
 // connectToAstraDb();
 // initMongooseBusinessModel();
-// console.log(await addReviewToAstra("https://www.yelp.com/biz/burma-ruby-palo-alto-3"))
 
-
+// 2. Then take the data-url attribute and plug that into here and uncomment
 // console.log(await addReviewToAstra("https://www.yelp.com/biz/falafel-stop-sunnyvale-"))
