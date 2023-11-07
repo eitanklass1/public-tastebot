@@ -1,16 +1,11 @@
 import { config } from 'dotenv';
-
-// Load environment variables from the .env file
 config();
-
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-
 import { addReviewToAstra } from "./addReviewToAstra.js"
 import { addChatGPTresponse } from "./addChatGPTresponse.js"
 import { connectToAstraDb, initMongooseBusinessModel } from "./astradb-mongoose.js"
 import express from 'express';
-// const express = require('express');
 
 connectToAstraDb();
 initMongooseBusinessModel();
