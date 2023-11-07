@@ -1,8 +1,5 @@
 import { config } from 'dotenv';
-
-// Load environment variables from the .env file
 config();
-
 import fetch from "node-fetch"
 
 export const generateEmbedding = async (prompt) => {
@@ -26,5 +23,3 @@ export const generateEmbedding = async (prompt) => {
 
     return result.data[0].embedding
 }
-
-// console.log(await generateEmbedding("Hello my name is Joe"))
