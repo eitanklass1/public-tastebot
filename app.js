@@ -11,7 +11,7 @@ connectToAstraDb();
 initMongooseBusinessModel();
 
 const app = express();
-const port = 3004;
+const port = 80;
 
 app.use(express.json());
 
