@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import { generateEmbedding } from "./generateEmbeddings.js"
 import { getYelpReviews, getBusinessIdFromUrl } from "./getYelpReviews.js"
+import { connectToAstraDb, initMongooseBusinessModel } from "./astradb-mongoose.js"
 import fs  from 'fs'
 
 export const addReviewToAstra = async (url) => {
@@ -22,7 +23,7 @@ export const addReviewToAstra = async (url) => {
             }
         } else {
             // let reviews = await getYelpReviews(businessURL) // This is for when the user inputs their own link into the restaurant search bar
-            let reviews = fs.readFileSync('falafelstopReviews.txt', 'utf-8'); // This is a temporary fix -- when adding a new restaurant just change the .txt file
+            let reviews = fs.readFileSync('reviews/nusretReviews.txt', 'utf-8'); // This is a temporary fix -- when adding a new restaurant just change the .txt file
             let businessID = await getBusinessIdFromUrl(businessURL)
             let vector = await generateEmbedding(reviews)
             let addedReview = await Business.create({
@@ -50,4 +51,4 @@ export const addReviewToAstra = async (url) => {
 // initMongooseBusinessModel();
 
 // 2. Then take the data-url attribute and plug that into here and uncomment
-// console.log(await addReviewToAstra("https://www.yelp.com/biz/falafel-stop-sunnyvale-"))
+// console.log(await addReviewToAstra("https://www.yelp.com/biz/nusr-et-steakhouse-beverly-hills-beverly-hills-2"))
