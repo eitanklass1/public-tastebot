@@ -158,13 +158,13 @@ a {
     background-color: #ff573a;
 }
 
-.icon.hidden {
+.hidden {
     display: none;
 }
 
-.icon.visible {
+/* .icon.visible {
     display: inline-block;   
-}
+} */
 
 #beta-message {
     text-align: center;
@@ -248,6 +248,7 @@ a {
 .chat-message {
     display: flex;
     align-items: flex-end;
+
 }
 
 .system-profile-img {
@@ -282,8 +283,10 @@ a {
     font-size: 0.8rem;
     padding-left: 10px;
     display: inline-block;
-    width: 60%;
-    margin-left: 35%;
+    /* width: 60%;
+    margin-left: 35%; */
+    width: 40%;
+    margin-left: 55%;
 }
 
 .user-message p {

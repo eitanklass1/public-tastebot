@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta property=”og:title” content="tastebot">
+    <meta property=”og:description” content="Answer your questions by using a curated list of a restaurant's Yelp reviews">
+    <meta property=”og:url” content="http://tastebot.co/">
+    <meta property=”og:site_name” content="tastebot">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;500;600;700;800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>tastebot.app</title>
+    <title>tastebot</title>
     <script>
         var currentData = {}
 
@@ -19,6 +23,14 @@
             console.log(messageContent)
             currentData.messages.push({ content: messageContent, role: "user" })
             updateState(currentData)
+
+            // For loading icon
+            const submitButton = document.getElementById('userSendButton');
+            const dots = document.querySelector('.dots')
+            submitButton.disabled = true;
+            const buttonIcon = document.querySelector('.send')
+            dots.classList.remove('hidden')
+            buttonIcon.classList.add('hidden')
 
             // This sends the messages to "addReviewToAstra" and "addChatGPTresponse", waits for the response, and adds the data to updateState() function
             fetch("/", {
@@ -37,21 +49,25 @@
 				})
 				.catch((error) => {
 					console.error("Error:", error);
-				});
+				})
+                .finally(() => {
+                    dots.classList.remove('visible');
+                    dots.classList.add('hidden');
+                    buttonIcon.classList.remove('hidden')
+                });
+
         }
 
         function getYelpReviewsByUrl() {
             // const urlAddress = document.getElementById("urlAddress").value // If user is able to plug in their own URL, uncomment this line and comment the line below this
             const urlAddress = document.getElementsByClassName("active")[0].getAttribute('data-url')
 
-            // This needs to be worked on for the loading icon
-            // const submitButton = document.getElementById('searchYelpButton');
-            // const icon = submitButton.querySelector('.icon');
-            // submitButton.disabled = true;
-            // icon.classList.remove('hidden');
-            // icon.classList.add('visible');
-            // submitButton.textContent = ''; // Remove the button text
-            // 
+            const submitButton = document.getElementById('searchYelpButton');
+            const icon = submitButton.querySelector('.icon');
+            const buttonText = submitButton.querySelector('.button-text');
+            submitButton.disabled = true;
+            icon.classList.remove('hidden');
+            buttonText.classList.add('hidden')
 
             console.log(urlAddress)
 
@@ -72,13 +88,12 @@
 				.catch((error) => {
 					console.error("Error:", error);
 				})
-                // .finally(() => {
-                //     // This .finally() => {...} is part of the loading icon that needs to be worked on
-                //     submitButton.disabled = false;
-                //     icon.classList.remove('visible');
-                //     icon.classList.add('hidden');
-                //     submitButton.textContent = 'GO';
-                // });
+                .finally(() => {
+                    submitButton.disabled = false;
+                    icon.classList.remove('visible');
+                    icon.classList.add('hidden');
+                    buttonText.classList.remove('hidden')
+                });
         }
 
         function updateState(data) {
@@ -146,21 +161,12 @@
                 </ul>
             </div>
             <button id="searchYelpButton" type="button">
-                GO
+                <span class="button-text">GO</span>
                 <span class="icon hidden">
-                    <!-- <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-                      <path fill="#fff" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
-                        <animateTransform 
-                           attributeName="transform" 
-                           attributeType="XML" 
-                           type="rotate"
-                           dur="1s" 
-                           from="0 50 50"
-                           to="360 50 50" 
-                           repeatCount="indefinite" />
-                    </path>
-                  </svg> -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <style>.spinner_aj0A{transform-origin:center;animation:spinner_KYSC .75s infinite linear}@keyframes spinner_KYSC{100%{transform:rotate(360deg)}}</style>
+                        <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z" class="spinner_aj0A" fill="white"/>
+                      </svg>
                 </span>
             </button>
         </div>
@@ -197,11 +203,19 @@
             <div class="chat-input">
                 <input id="userSendMessage" type="text" placeholder="Ask your question here...">
                 <button id="userSendButton">
-                    <svg fill="#FFFFFF" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF">
+                    <svg class="send" fill="#FFFFFF" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"/>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
                         <g id="SVGRepo_iconCarrier"> <path d="M231.626,128a16.015,16.015,0,0,1-8.18262,13.96094L54.53027,236.55273a15.87654,15.87654,0,0,1-18.14648-1.74023,15.87132,15.87132,0,0,1-4.74024-17.60156L60.64746,136H136a8,8,0,0,0,0-16H60.64746L31.64355,38.78906A16.00042,16.00042,0,0,1,54.5293,19.44727l168.915,94.59179A16.01613,16.01613,0,0,1,231.626,128Z"/> </g>
                     </svg>
+                    <span class="dots hidden">
+                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>.spinner_S1WN{animation:spinner_MGfb .8s linear infinite;animation-delay:-.8s}.spinner_Km9P{animation-delay:-.65s}.spinner_JApP{animation-delay:-.5s}@keyframes spinner_MGfb{93.75%,100%{opacity:.2}}</style>
+                            <circle class="spinner_S1WN" cx="4" cy="12" r="3" fill="#FFFFFF"/>
+                            <circle class="spinner_S1WN spinner_Km9P" cx="12" cy="12" r="3" fill="#FFFFFF"/>
+                            <circle class="spinner_S1WN spinner_JApP" cx="20" cy="12" r="3" fill="#FFFFFF"/>
+                          </svg>
+                    </span>
                 </button>
             </div>
         </div>
