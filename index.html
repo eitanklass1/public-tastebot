@@ -61,7 +61,7 @@
         function getYelpReviewsByUrl() {
             // const urlAddress = document.getElementById("urlAddress").value // If user is able to plug in their own URL, uncomment this line and comment the line below this
             const urlAddress = document.getElementsByClassName("active")[0].getAttribute('data-url')
-
+            console.log(urlAddress)
             const submitButton = document.getElementById('searchYelpButton');
             const icon = submitButton.querySelector('.icon');
             const buttonText = submitButton.querySelector('.button-text');
