@@ -1,5 +1,7 @@
 # tastebot.co
 
+
+
 Welcome to tastbot.co! This project utilizes artificial intelligence to analyze a curated list of restaurant Yelp reviews and provides valuable insights to customers. The full-stack application is developed using OpenAI’s API for natural language processing, and it's hosted on an Ubuntu server. The frontend is built using HTML and CSS, while the backend utilizes Node.js, Express.js, Mongoose, and AstraDB for vector embeddings. The application is publicly hosted on Vercel. Below you'll find an overview of the features, technologies used, and instructions on setting up and running the application.
 
 
